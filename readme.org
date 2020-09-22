@@ -1,0 +1,17 @@
+* comby-search
+Search codes using =comby=
+
+** INSTALL
+   - install comby, check https://github.com/comby-tools/comby
+   - git clone this repo
+   - (add-to-list 'load-path "/path/to/comby-search.el")
+   - (require 'comby-search)
+
+*** via el-get
+#+begin_src emacs-lisp
+(:name comby-search
+       :description "Search codes using =comby="
+       :type github
+       :pkgname "RCmerci/comby-search")
+#+end_src
+
