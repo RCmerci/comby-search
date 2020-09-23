@@ -31,7 +31,7 @@
 					(ocaml . "-matcher .ml")))
 
 ;;;###autoload
-(defun comby-search (&optional lang template)
+(defun comby-search (&optional lang template input)
   (interactive (list
 		(completing-read "select language: "
 				 comby-search-lang-match-param)
@@ -43,7 +43,7 @@
   (when (get-buffer "*comby-search*")
     (kill-buffer "*comby-search*"))
 
-  (let* ((input (read-from-minibuffer ">> " template))
+  (let* ((input-s (or input (read-from-minibuffer ">> " template)))
 	 (proc
 	  (start-process-shell-command "*comby-search*"
 				       (get-buffer-create "*comby-search*")
@@ -51,7 +51,7 @@
 					       comby-search-comby-bin
 					       (cdr (assoc (intern lang) comby-search-lang-match-param))
 					       (if (projectile-project-root) (format "-directory %s" (projectile-project-root)) "")
-					       input))))
+					       input-s))))
     (set-process-filter proc (lambda (proc str)
 			       (with-current-buffer (process-buffer proc)
 				 (insert str))))
