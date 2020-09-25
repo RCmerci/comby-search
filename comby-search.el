@@ -30,6 +30,11 @@
 (defvar comby-search-lang-match-param '((go . "-matcher .go")
 					(ocaml . "-matcher .ml")))
 
+(defvar comby-search-templates '(
+				 "interface {:[_] MethodName(:[_]):[_]}"
+				 "type :[_] struct {:[_] FieldName :[_]}"
+				 ))
+
 ;;;###autoload
 (defun comby-search (&optional lang template input)
   (interactive (list
@@ -37,7 +42,7 @@
 				 comby-search-lang-match-param)
 		(completing-read
 		 "select searching template: "
-		 '("interface {:[_]MethodName(:[_]):[_]}"))))
+		 comby-search-templates)))
   (unless comby-search-comby-bin
     (error "'comby' not found"))
   (when (get-buffer "*comby-search*")
